@@ -11,4 +11,14 @@ WORKDIR /micropython/unix
 
 RUN make
 
-CMD ./micropython $EXECUTE_FILE
+WORKDIR / 
+
+RUN git clone https://github.com/micropython/micropython-lib.git
+
+WORKDIR /micropython-lib
+
+RUN make install
+
+WORKDIR /micropython/unix
+
+ENTRYPOINT ["./micropython"]
